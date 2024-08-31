@@ -1,0 +1,22 @@
+[2024-08-31 21:13:27] local.ERROR: Class "Sentry\Laravel\Integration" not found {"exception":"[object] (Error(code: 0): Class \"Sentry\\Laravel\\Integration\" not found at /mnt/c/project/php-project-57/bootstrap/app.php:18)
+[stacktrace]
+#0 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder.php(337): {closure}()
+#1 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Container/Container.php(1407): Illuminate\\Foundation\\Configuration\\ApplicationBuilder->Illuminate\\Foundation\\Configuration\\{closure}()
+#2 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Container/Container.php(1343): Illuminate\\Container\\Container->fireCallbackArray()
+#3 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Container/Container.php(1329): Illuminate\\Container\\Container->fireAfterResolvingCallbacks()
+#4 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Container/Container.php(833): Illuminate\\Container\\Container->fireResolvingCallbacks()
+#5 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1046): Illuminate\\Container\\Container->resolve()
+#6 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Container/Container.php(751): Illuminate\\Foundation\\Application->resolve()
+#7 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1028): Illuminate\\Container\\Container->make()
+#8 /mnt/c/project/php-project-57/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(61): Illuminate\\Foundation\\Application->make()
+#9 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(868): NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider->register()
+#10 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#11 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(843): Illuminate\\Foundation\\ProviderRepository->load()
+#12 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/RegisterProviders.php(37): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#13 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(316): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#14 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(473): Illuminate\\Foundation\\Application->bootstrapWith()
+#15 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(195): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#16 /mnt/c/project/php-project-57/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1203): Illuminate\\Foundation\\Console\\Kernel->handle()
+#17 /mnt/c/project/php-project-57/artisan(13): Illuminate\\Foundation\\Application->handleCommand()
+#18 {main}
+"} 
