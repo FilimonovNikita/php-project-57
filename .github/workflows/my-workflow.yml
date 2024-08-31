@@ -12,7 +12,7 @@ jobs:
     - name: Setup PHP without composer
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'
+        php-version: '8.2'
         tools: none
     - name: PHP Security Checker
       uses: StephaneBour/actions-php-security-checker@1.1
