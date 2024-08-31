@@ -1,36 +1,35 @@
-name: Run tests
+name: PHP CI
 
-on: [push]
+on:
+  pull_request:
+  push:
 
 jobs:
   build:
-    name: Run tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
+    - name: Setup PHP without composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        tools: none
+    - name: PHP Security Checker
+      uses: StephaneBour/actions-php-security-checker@1.1
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+    - name: Setup project
+      run: make setup
 
-      - name: Run composer install
-        run: composer install -n --prefer-dist
+    - name: Check lint
+      run: make lint
 
-      - name: Prepare Laravel Application
-        run: |
-          cp .env.ci .env
-          php artisan key:generate
-      - name: Run lint
-        run: make lint
-      - name: Run tests
-        run: make test
-      - name: Run test & publish code coverage
-        uses: paambaati/codeclimate-action@v4.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
-          debug: true
+    - name: Execute tests via PHPUnit
+      run: make test-coverage
+    - name: Show test coverage
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: make test-coverage
+        coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
+        debug: true
