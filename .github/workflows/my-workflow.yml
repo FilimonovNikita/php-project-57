@@ -20,7 +20,7 @@ jobs:
 
       - name: Prepare Laravel Application
         run: |
-          cp .env
+          cp .env.ci .env
           php artisan key:generate
       - name: Run lint
         run: make lint
