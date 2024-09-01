@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '225a614b3ac031d75800f7b594a51d026c57c1af',
+        'reference' => 'cd2855926612fa3df8106b72df9bd804d2ca8e7f',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -389,12 +389,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '225a614b3ac031d75800f7b594a51d026c57c1af',
+            'reference' => 'cd2855926612fa3df8106b72df9bd804d2ca8e7f',
             'dev_requirement' => false,
         ),
         'laravel/pint' => array(
@@ -1030,6 +1030,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'squizlabs/php_codesniffer' => array(
+            'pretty_version' => '3.10.2',
+            'version' => '3.10.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
+            'aliases' => array(),
+            'reference' => '86e5f5dd9a840c46810ebe5ff1885581c42a3017',
+            'dev_requirement' => true,
         ),
         'symfony/clock' => array(
             'pretty_version' => 'v7.1.1',
