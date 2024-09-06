@@ -1,6 +1,9 @@
 start:
 	php artisan serve --host 0.0.0.0
 
+startLocal:
+	php -S localhost:8080
+
 start-frontend:
 	npm run dev
 
