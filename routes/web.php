@@ -5,6 +5,7 @@ use App\Http\Controllers\MailController;
 use App\Mail\MyTestEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/test', function () {
     return 'test';
@@ -27,7 +28,7 @@ Route::get('/testEmail', [MailController::class, 'sendTestEmail']);
 
 Route::resources([
     'task_statuses' => TaskStatusController::class,
-    //'tasks' => TaskController::class,
-    //'labels' => LabelController::class,
+    'tasks' => TaskController::class,
+    'labels' => LabelController::class,
 ]);
 require __DIR__.'/auth.php';
