@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
-
+use App\Models\TaskStatus;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class TaskController extends Controller
 {
@@ -13,14 +17,16 @@ class TaskController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
-        //$this->authorizeResource(Task::class);
+        //$this->middleware('guest');
+        $this->authorizeResource(Task::class);
     }
 
     public function index()
     {
         $tasks = Task::orderby("id")->paginate(15);
-        return view('tasks.index', compact("tasks"));
+        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
+        $users = User::orderby('id')->pluck('name', "id");
+        return view('tasks.index', compact("tasks", "taskStatus", "users"));
     }
 
     /**
@@ -29,7 +35,9 @@ class TaskController extends Controller
     public function create()
     {
         $tasks =new Task();
-        return view('tasks.create', compact("tasks"));
+        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
+        $users = User::orderby('id')->pluck('name', "id");
+        return view('tasks.create', compact("tasks", "taskStatus", "users"));
     }
 
     /**
@@ -51,6 +59,7 @@ class TaskController extends Controller
         $task  = new Task();
 
         $task ->fill($data);
+        $task->created_by_id = (int) Auth::id();
 
         $task ->save();
 
@@ -64,7 +73,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('task.show', compact('task'));
+        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
+        $users = User::orderby('id')->pluck('name', "id");
+        return view('tasks.show', compact("task", "taskStatus", "users"));
     }
 
     /**
@@ -72,34 +83,34 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('tasks.create', compact("task"));//
+        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
+        $users = User::orderby('id')->pluck('name', "id");
+        return view('tasks.edit', compact("task", "taskStatus", "users"));//
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-        $data = $request->validate(
-            [
-                'name' => 'required|unique:tasks',
-                'status_id' => 'required|exists:task_statuses,id',
-                'description' => 'nullable|string',
-                'assigned_to_id' => 'nullable|integer',
-                'label' => 'nullable|array',
-            ],
-            [
-                'name.unique' => __('task_statuses.validation.unique')
-            ]);
-        $task  = new Task();
+        $data = $request->validate([
+            'name' => 'required|unique:tasks,name,' . $task->id,
+            'description' => 'nullable|string',
+            'assigned_to_id' => 'nullable|integer',
+            'status_id' => 'required|integer',
+            'label' => 'nullable|array',
+        ], [
+            'name.unique' => __('task_statuses.validation.unique')
+        ]);
 
-        $task ->fill($data);
+        // Заполняем модель данными и сохраняем
+        $task->fill($data);
+        $task->save();
 
-        $task ->save();
-
+        // Перенаправляем с успешным сообщением
         return redirect()
-        ->route('tasks.index')
-        ->with('success', 'Задача успешно создана');//
+            ->route('tasks.index')
+            ->with('success', 'Задача успешно обновлена');
     }
 
     /**

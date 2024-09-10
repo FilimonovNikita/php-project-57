@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
@@ -18,19 +20,25 @@ class Task extends Model
         'created_by_id',
         'assigned_to_id',
     ];
+    protected function formattedDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->created_at)->format('d.m.Y'),
+        );
+    }
 
     public function taskStatus(): BelongsTo
     {
-        return $this->belongsTo(TaskStatus::class);
+        return $this->belongsTo(TaskStatus::class, 'status_id', 'id');
     }
 
-    public function createdBy(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by_id', 'id');
     }
 
     public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'assigned_to_id', 'id');
     }
 }

@@ -72,6 +72,10 @@ class TaskStatusController extends Controller
     public function destroy(TaskStatus $taskStatus)
     {
         Log::info('Метод destroy вызван');
+        if ($taskStatus->tasks->count() > 0) {
+            flash(__('flashes.task_statuses.error'))->error();
+            return back();
+        }
         $taskStatus->delete();
         return redirect()->
             route('task_statuses.index')->

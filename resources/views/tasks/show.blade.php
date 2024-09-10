@@ -1,3 +1,13 @@
+@extends('layouts.app')
+
+@section('content')
 <div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
+    <h2>
+        Просмор задачи: {{$task->name}}
+    </h2>
+    <p>Имя: {{$task->name}}</p>
+    <p>Статус: {{$task->taskStatus->name}}</p>
+    <p>Описание: {{$task->description}}</p>
+    <p>Метки: </p>
 </div>
+@endsection
