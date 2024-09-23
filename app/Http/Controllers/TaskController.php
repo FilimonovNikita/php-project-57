@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Models\TaskLabel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Access\AuthorizationException;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
@@ -23,7 +26,15 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::orderby("id")->paginate(15);
+        $tasks = QueryBuilder::for(Task::class)
+        ->allowedFilters([
+            AllowedFilter::exact('status_id'),
+            AllowedFilter::exact('assigned_to_id'),
+            AllowedFilter::exact('created_by_id')
+            ])
+        ->orderBy('id')
+        ->paginate(15);
+        //$tasks = Task::orderby("id")->paginate(15);
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
         return view('tasks.index', compact("tasks", "taskStatus", "users"));
@@ -37,7 +48,9 @@ class TaskController extends Controller
         $tasks =new Task();
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        return view('tasks.create', compact("tasks", "taskStatus", "users"));
+        $users = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        return view('tasks.create', compact("tasks", "taskStatus", "users", 'taskLabels'));
     }
 
     /**
@@ -63,9 +76,8 @@ class TaskController extends Controller
 
         $task ->save();
 
-        return redirect()
-        ->route('tasks.index')
-        ->with('success', 'Задача успешно создана');//
+        flash(__('task.flash.store'))->success();
+        return redirect()->route('tasks.index');//
     }
 
     /**
@@ -75,7 +87,8 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        return view('tasks.show', compact("task", "taskStatus", "users"));
+        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        return view('tasks.show', compact("task", "taskStatus", "users", 'taskLabels'));
     }
 
     /**
@@ -85,7 +98,8 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        return view('tasks.edit', compact("task", "taskStatus", "users"));//
+        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        return view('tasks.edit', compact("task", "taskStatus", "users", "taskLabels"));//
     }
 
     /**
@@ -103,14 +117,12 @@ class TaskController extends Controller
             'name.unique' => __('task_statuses.validation.unique')
         ]);
 
-        // Заполняем модель данными и сохраняем
         $task->fill($data);
         $task->save();
 
-        // Перенаправляем с успешным сообщением
+        flash(__('task.flash.update'))->success();
         return redirect()
-            ->route('tasks.index')
-            ->with('success', 'Задача успешно обновлена');
+            ->route('tasks.index');
     }
 
     /**
@@ -118,9 +130,10 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        flash(__('task.flash.delete'))->success();
+        
         $task->delete();
         return redirect()->
-            route('tasks.index')->
-            with('sucsess', "Задача успешно удалена");
+            route('tasks.index');
     }
 }

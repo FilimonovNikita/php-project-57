@@ -71,4 +71,11 @@
       'Sentry' => 'Sentry\\Laravel\\Facade',
     ),
   ),
+  'spatie/laravel-query-builder' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
+    ),
+  ),
 );

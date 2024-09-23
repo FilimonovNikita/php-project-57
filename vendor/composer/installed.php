@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ba0665378aaeb01b4b421b395f6b8753494fde30',
+        'reference' => '4903d0d51eb3811f4fed046291028b71aecc929b',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -430,7 +430,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ba0665378aaeb01b4b421b395f6b8753494fde30',
+            'reference' => '4903d0d51eb3811f4fed046291028b71aecc929b',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -949,8 +949,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1161,6 +1161,24 @@
             'install_path' => __DIR__ . '/../sentry/sentry-laravel',
             'aliases' => array(),
             'reference' => '2bbcb7e81097993cf64d5b296eaa6d396cddd5a7',
+            'dev_requirement' => false,
+        ),
+        'spatie/laravel-package-tools' => array(
+            'pretty_version' => '1.16.5',
+            'version' => '1.16.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-package-tools',
+            'aliases' => array(),
+            'reference' => 'c7413972cf22ffdff97b68499c22baa04eddb6a2',
+            'dev_requirement' => false,
+        ),
+        'spatie/laravel-query-builder' => array(
+            'pretty_version' => '6.0.1',
+            'version' => '6.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-query-builder',
+            'aliases' => array(),
+            'reference' => '69a6fd38c1515e42aec0df10d8adb8465f2f1f79',
             'dev_requirement' => false,
         ),
         'spatie/once' => array(

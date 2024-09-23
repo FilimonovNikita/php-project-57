@@ -14,23 +14,27 @@ class TaskStatusController extends Controller
         //$this->middleware('guest');
         $this->authorizeResource(TaskStatus::class);
     }
+
     public function index()
     {
         Log::info('Метод index вызван');
         $taskStatus = TaskStatus::orderby("id")->paginate();
         return view('task_status.index', compact("taskStatus"));
     }
+
     public function create()
     {
         Log::info('Метод create вызван');
         $taskStatus =new TaskStatus();
         return view('task_status.create', compact("taskStatus"));
     }
+
     public function store(Request $request)
     {
         $data = $request->validate(
             [
-                'name' => 'required|max:255|unique:task_statuses'
+                'name' => 'required|max:255|unique:task_statuses',
+                'description' => 'nullable'
             ],
             [
                 'name.unique' => __('task_statuses.validation.unique')
@@ -41,10 +45,12 @@ class TaskStatusController extends Controller
 
         $taskStatus ->save();
 
+        flash(__('task_status.flash.store'))->success();
+
         return redirect()
-        ->route('task_statuses.index')
-        ->with('success', 'Статус задачи успешно создан');
+        ->route('task_statuses.index');
     }
+
     public function edit(TaskStatus $taskStatus)
     {
         Log::info('Метод edit вызван');
@@ -65,9 +71,10 @@ class TaskStatusController extends Controller
 
         $taskStatus ->save();
 
+        flash(__('task_status.flash.update'))->success();
+
         return redirect()
-        ->route('task_statuses.index')
-        ->with('success', 'Статус задачи успешно создан');
+        ->route('task_statuses.index');
         }
     public function destroy(TaskStatus $taskStatus)
     {
@@ -77,8 +84,9 @@ class TaskStatusController extends Controller
             return back();
         }
         $taskStatus->delete();
+
+        flash(__('task_status.flash.delete'))->success();
         return redirect()->
-            route('task_statuses.index')->
-            with('sucsess', "Статус задачи успешно удалён");
+            route('task_statuses.index');
     }
 }

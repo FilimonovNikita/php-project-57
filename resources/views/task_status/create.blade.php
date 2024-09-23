@@ -13,15 +13,16 @@
                     <label for="name">{{ __('task_status.create.name') }}</label>
                 </div>
                 <div class="mt-2">
-                    <input type="text" name="name" id="name" class="rounded border-gray-300 w-1/3" value="{{ old('name') }}">
+                    <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" class="rounded border-gray-300 w-1/3" value="{{ old('name') }}">
                 </div>
                 @error('name')
                     <div class="text-rose-600">{{ $message }}</div>
                 @enderror
                 <div class="mt-2">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ __('task_status.create.button') }}
                     </button>
+                    <a href="{{ route('task_statuses.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">{{ __('task_status.create.back') }}</a>
                 </div>
             </div>
         </form>

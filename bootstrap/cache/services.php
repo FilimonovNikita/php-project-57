@@ -33,7 +33,9 @@
     29 => 'Termwind\\Laravel\\TermwindServiceProvider',
     30 => 'Sentry\\Laravel\\ServiceProvider',
     31 => 'Sentry\\Laravel\\Tracing\\ServiceProvider',
-    32 => 'App\\Providers\\AppServiceProvider',
+    32 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
+    33 => 'App\\Providers\\AppServiceProvider',
+    34 => 'App\\Providers\\AuthServiceProvider',
   ),
   'eager' => 
   array (
@@ -54,7 +56,9 @@
     14 => 'Termwind\\Laravel\\TermwindServiceProvider',
     15 => 'Sentry\\Laravel\\ServiceProvider',
     16 => 'Sentry\\Laravel\\Tracing\\ServiceProvider',
-    17 => 'App\\Providers\\AppServiceProvider',
+    17 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
+    18 => 'App\\Providers\\AppServiceProvider',
+    19 => 'App\\Providers\\AuthServiceProvider',
   ),
   'deferred' => 
   array (
