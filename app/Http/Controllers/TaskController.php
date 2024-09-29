@@ -8,6 +8,7 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\TaskLabel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Access\AuthorizationException;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -24,8 +25,9 @@ class TaskController extends Controller
         $this->authorizeResource(Task::class);
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $filter = $request->input('filter');
         $tasks = QueryBuilder::for(Task::class)
         ->allowedFilters([
             AllowedFilter::exact('status_id'),
@@ -37,7 +39,7 @@ class TaskController extends Controller
         //$tasks = Task::orderby("id")->paginate(15);
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        return view('tasks.index', compact("tasks", "taskStatus", "users"));
+        return view('tasks.index', compact("tasks", "taskStatus", "users", "filter"));
     }
 
     /**
@@ -45,10 +47,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $tasks =new Task();
+        $tasks = new Task();
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $users = TaskLabel::orderby('id')->pluck('name', "id");
         $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
         return view('tasks.create', compact("tasks", "taskStatus", "users", 'taskLabels'));
     }
@@ -64,19 +65,23 @@ class TaskController extends Controller
                 'status_id' => 'required|exists:task_statuses,id',
                 'description' => 'nullable|string',
                 'assigned_to_id' => 'nullable|integer',
-                'label' => 'nullable|array',
             ],
             [
-                'name.unique' => __('task_statuses.validation.unique')
-            ]);
-        $task  = new Task();
+                'name.unique' => __('task.validation.unique')
+            ]
+        );
 
-        $task ->fill($data);
-        $task->created_by_id = (int) Auth::id();
+        $task = Auth::user()->createdTasks()->create($data);
+        $task->save();
 
-        $task ->save();
+        $labels = $request->input('labels');
+
+        if ($labels) {
+            $task->tasklabel()->attach($labels);
+        }
 
         flash(__('task.flash.store'))->success();
+
         return redirect()->route('tasks.index');//
     }
 
@@ -117,8 +122,14 @@ class TaskController extends Controller
             'name.unique' => __('task_statuses.validation.unique')
         ]);
 
-        $task->fill($data);
+        $task = Auth::user()->createdTasks()->create($data);
         $task->save();
+
+        $labels = $request->input('labels');
+
+        if ($labels) {
+            $task->tasklabel()->attach($labels);
+        }
 
         flash(__('task.flash.update'))->success();
         return redirect()
@@ -131,7 +142,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         flash(__('task.flash.delete'))->success();
-        
+
         $task->delete();
         return redirect()->
             route('tasks.index');

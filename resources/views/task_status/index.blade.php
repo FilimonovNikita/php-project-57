@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="grid col-span-full">
-            <h1 class="mb-5">{{ __('task_status.index.header') }}</h1>
+            <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_status.index.header') }}</h1>
         @auth
             <div>
                 <a href="{{route('task_statuses.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -10,7 +10,7 @@
                 </a>
             </div>
         @endauth
-        <table >
+        <table class="mt-4">
             <thead class="border-b-2 border-solid border-black text-left">
                 <tr>
                     <th>{{ __('task_status.index.id') }}</th>

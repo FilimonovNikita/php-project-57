@@ -3,7 +3,7 @@
 @section('content')
     
 <div class="grid col-span-full">
-    <h1 class="mb-5">{{ __('task_label.create.header') }}</h1>
+    <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_label.create.header') }}</h1>
     <form class="w-50" method="POST" 
         action="{{route('task_labels.store')}}">
         @csrf

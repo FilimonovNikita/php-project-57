@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="grid col-span-full">
-    <h1 class="mb-5 text-black dark:text-white text-5xl">{{ __('task.edit.header') }}</h1>
+    <h1 class="mb-5 text-black dark:text-white text-5xl" style="font-size: 3rem;">{{ __('task.edit.header') }}</h1>
     <form action="{{ route('tasks.update', $task->id) }}" method="post">
         @csrf
         @method('PATCH') <!-- Используйте PATCH метод для обновления записи -->

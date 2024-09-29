@@ -9,6 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
         <!-- Fonts -->
+         
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
@@ -16,7 +17,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.2/jquery-ujs.min.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased>
+    <body>
         <div id="app">
             <header class="fixed w-full">
                 @include('layouts.navigation')

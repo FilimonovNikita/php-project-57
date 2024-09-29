@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name', 255)->unique();
             $table->text('description')->nullable();
             $table->foreignId('status_id')->constrained('task_statuses');
-            $table->foreignId('label_id')->constrained('task_labels');
             $table->foreignId('created_by_id')->constrained('users');
             $table->foreignId('assigned_to_id')->nullable()->constrained('users');
             $table->timestamps();

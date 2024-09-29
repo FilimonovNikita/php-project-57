@@ -25,7 +25,7 @@ class TaskStatusController extends Controller
     public function create()
     {
         Log::info('Метод create вызван');
-        $taskStatus =new TaskStatus();
+        $taskStatus = new TaskStatus();
         return view('task_status.create', compact("taskStatus"));
     }
 
@@ -38,7 +38,8 @@ class TaskStatusController extends Controller
             ],
             [
                 'name.unique' => __('task_statuses.validation.unique')
-            ]);
+            ]
+        );
         $taskStatus  = new TaskStatus();
 
         $taskStatus ->fill($data);
@@ -60,12 +61,13 @@ class TaskStatusController extends Controller
     {
         Log::info('Метод update вызван');
         $data = $request->validate(
-        [
-            'name' => 'required|max:255|unique:task_statuses,name,' . $taskStatus->id
-        ],
-        [
+            [
+                'name' => 'required|max:255|unique:task_statuses,name,' . $taskStatus->id
+            ],
+            [
             'name.unique' => __('task_statuses.validation.unique')
-        ]);
+            ]
+        );
 
         $taskStatus ->fill($data);
 
@@ -75,7 +77,7 @@ class TaskStatusController extends Controller
 
         return redirect()
         ->route('task_statuses.index');
-        }
+    }
     public function destroy(TaskStatus $taskStatus)
     {
         Log::info('Метод destroy вызван');

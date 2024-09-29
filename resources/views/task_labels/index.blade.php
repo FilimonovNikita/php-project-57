@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="grid col-span-full">
-    <h1 class="mb-5">{{ __('task_label.index.header') }}</h1>
+    <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_label.index.header') }}</h1>
         <div>
             <a href="{{route('task_labels.create')}}" 
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

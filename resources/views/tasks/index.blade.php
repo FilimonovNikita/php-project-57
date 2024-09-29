@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="grid col-span-full">
-        <h1 class="mb-5">{{ __('task.index.header') }}</h1>
+        <h1 class="mb-5" style="font-size: 3rem;">{{ __('task.index.header') }}</h1>
         
         <div class="w-full flex items-center mb-4">
             <form method="GET" action="{{ route('tasks.index') }}" class="flex space-x-2">

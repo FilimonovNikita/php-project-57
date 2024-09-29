@@ -16,6 +16,11 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            components: {
+                h1: {
+                    fontSize: '3rem',
+                }
+            }
         },
     },
 

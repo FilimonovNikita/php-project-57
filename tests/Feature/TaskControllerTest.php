@@ -41,7 +41,7 @@ class TaskControllerTest extends TestCase
 
     public function testStore(): void
     {
-        $data = ['name' => 'Task', 
+        $data = ['name' => 'Task',
                 'status_id' => TaskStatus::factory()->create()->id,
                 'description' => 'Task description'];
 

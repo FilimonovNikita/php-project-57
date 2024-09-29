@@ -31,4 +31,4 @@ Route::resources([
     'task_labels' => TaskLabelController::class
 ]);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

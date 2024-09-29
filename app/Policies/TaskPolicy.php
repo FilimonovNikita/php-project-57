@@ -16,7 +16,7 @@ class TaskPolicy
     {
         return true;//
     }
-    
+
     public function view(?User $user, Task $task): bool
     {
         return true;

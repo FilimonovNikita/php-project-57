@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 
 class TaskLabelController extends Controller
 {
-    
     public function __construct()
     {
         //$this->middleware('guest');
@@ -42,10 +41,11 @@ class TaskLabelController extends Controller
             [
                 'name' => 'required|unique:task_labels',
                 'description' => 'nullable|string',
-            ],         
+            ],
             [
                 'name.unique' => __('task_statuses.validation.unique')
-            ]);
+            ]
+        );
         $taskLabel = new TaskLabel();
 
         $taskLabel->fill($data);
@@ -74,10 +74,11 @@ class TaskLabelController extends Controller
             [
                 'name' => 'required|unique:task_labels,name,' . $taskLabel->id,
                 'description' => 'nullable|string',
-            ],         
+            ],
             [
                 'name.unique' => __('task_statuses.validation.unique')
-            ]);
+            ]
+        );
 
         $taskLabel->fill($data);
 

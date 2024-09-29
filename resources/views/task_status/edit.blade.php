@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="grid col-span-full">
-        <h1 class="mb-5">
+        <h1 class="mb-5" style="font-size: 3rem;">
             {{ __('task_status.edit.header') }}
         </h1>
 

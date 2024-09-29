@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="grid col-span-full">
-    <h1 class="mb-5 text-black dark:text-white text-5xl">{{ __('task.create.header') }}</h1>
+    <h1 class="mb-5 text-black dark:text-white text-5xl" style="font-size: 3rem;">{{ __('task.create.header') }}</h1>
     <form class="w-50" action="{{ route('tasks.store') }}" method="post">
         @csrf
         <div class="flex flex-col">
