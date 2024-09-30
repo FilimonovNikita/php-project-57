@@ -17,6 +17,10 @@ jobs:
     - name: PHP Security Checker
       uses: StephaneBour/actions-php-security-checker@1.1
 
+    - name: Fix autoloading issue
+      run: |
+        composer dump-autoload
+        chmod -R 755 vendor
     - name: Setup project
       run: make setup
 
