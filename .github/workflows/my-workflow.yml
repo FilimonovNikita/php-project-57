@@ -12,23 +12,27 @@ jobs:
     - name: Setup PHP without composer
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: '8.3.11'
         tools: none
     - name: PHP Security Checker
       uses: StephaneBour/actions-php-security-checker@1.1
-    - name: Установка зависимостей
+
+    - name: Вывод структуры директории
       run: |
-        composer install --no-dev --prefer-dist
-    - name: Setup project
-      run: make setup
+        tree -a vendor/laravel/framework/src/Illuminate/Log
+    - name: Run composer install
+      run: composer install -n --prefer-dist
 
-    - name: Check lint
+    - name: Prepare Laravel Application
+      run: |
+        cp .env.ci .env
+        php artisan key:generate
+    - name: Run lint
       run: make lint
-
-    #- name: Execute tests via PHPUnit
-    #  run: make test-coverage
-    #- name: Show test coverage
-    #  uses: paambaati/codeclimate-action@v3.0.0
+    - name: Run tests
+      run: make test
+    - name: Run test & publish code coverage
+      uses: paambaati/codeclimate-action@v4.0.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       #with:
