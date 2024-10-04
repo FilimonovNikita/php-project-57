@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
@@ -148,10 +147,4 @@ class TaskController extends Controller
         return redirect()->
             route('tasks.index');
     }
-=======
-
-class TaskController extends Controller
-{
-    //
->>>>>>> main
 }
