@@ -26,6 +26,10 @@ jobs:
         php artisan key:generate
     - name: Run lint
       run: make lint
+    - name: Показать директорию и содержание файла
+    - run: |
+        ls -l /home/runner/work/php-project-57/php-project-57/public/build/
+        cat /home/runner/work/php-project-57/php-project-57/public/build/manifest.json
     - name: Run tests
       run: make test
     - name: Run test & publish code coverage
