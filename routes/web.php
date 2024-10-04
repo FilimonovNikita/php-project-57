@@ -5,10 +5,7 @@ use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
-<<<<<<< HEAD
 use App\Http\Controllers\TaskLabelController;
-=======
->>>>>>> main
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,11 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::resources([
     'task_statuses' => TaskStatusController::class,
     'tasks' => TaskController::class,
-<<<<<<< HEAD
     'task_labels' => TaskLabelController::class
-=======
-    'labels' => LabelController::class,
->>>>>>> main
 ]);
 
 require __DIR__ . '/auth.php';
