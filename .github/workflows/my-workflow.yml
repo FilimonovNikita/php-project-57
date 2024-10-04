@@ -17,9 +17,6 @@ jobs:
     - name: PHP Security Checker
       uses: StephaneBour/actions-php-security-checker@1.1
 
-    - name: Вывод структуры директории
-      run: |
-        tree -a vendor/laravel/framework/src/Illuminate/Log
     - name: Run composer install
       run: composer install -n --prefer-dist
 
