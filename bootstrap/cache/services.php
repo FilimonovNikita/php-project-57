@@ -37,6 +37,8 @@
     33 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
     34 => 'App\\Providers\\AppServiceProvider',
     35 => 'App\\Providers\\AuthServiceProvider',
+    36 => 'App\\Providers\\BroadcastServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
   ),
   'eager' => 
   array (
@@ -60,6 +62,8 @@
     17 => 'Spatie\\QueryBuilder\\QueryBuilderServiceProvider',
     18 => 'App\\Providers\\AppServiceProvider',
     19 => 'App\\Providers\\AuthServiceProvider',
+    20 => 'App\\Providers\\BroadcastServiceProvider',
+    21 => 'App\\Providers\\EventServiceProvider',
   ),
   'deferred' => 
   array (
