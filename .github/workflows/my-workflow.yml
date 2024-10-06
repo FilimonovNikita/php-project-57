@@ -28,8 +28,8 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan migrate --force
-    - name: Проверить имя базы данных
-      run: php artisan db
+    - name: Проверить информацию о базе данных
+      run: php artisan db --no-tty
 
     - name: Вывести список таблиц в базе данных
       run: sqlite3 database/database.sqlite ".tables"
