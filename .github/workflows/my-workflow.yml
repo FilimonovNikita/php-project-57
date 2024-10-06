@@ -42,10 +42,11 @@ jobs:
     - name: Проверить существование базы данных SQLite
       run: sqlite3 database/database.sqlite ".databases"
     - name: Run test & publish code coverage
-      uses: paambaati/codeclimate-action@v5.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: make test-coverage
-        coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
-        debug: true
+      run: php artisan test
+      #uses: paambaati/codeclimate-action@v5.0.0
+      #env:
+        #CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #with:
+        #coverageCommand: make test-coverage
+        #coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+        #debug: true
