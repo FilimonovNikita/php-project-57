@@ -1,54 +1,31 @@
 name: PHP CI
 
-on:
-  pull_request:
-  push:
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup PHP without composer
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3.11'
-        tools: none
-    - name: PHP Security Checker
-      uses: StephaneBour/actions-php-security-checker@1.1
+      - uses: actions/checkout@v3
 
-    - name: Run composer install
-      run: composer install -n --prefer-dist
-    - name: Create temporary sqlite database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-    - name: Run laravel database migrations
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: php artisan migrate --force
-    - name: Проверить информацию о базе данных
-      run: php artisan db:show
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
 
-    - name: Проверить логи ошибок
-      run: cat /tmp/cc-reporter.log
-    - name: Вывести список таблиц в базе данных
-      run: sqlite3 database/database.sqlite ".tables"
-    - name: Проверить существование таблицы users
-      run: sqlite3 database/database.sqlite "SELECT * FROM sqlite_master WHERE type='table' AND name='users'"
-    - name: Setup project
-      run: make setup
-    - name: Run linter
-      run: make lint
-    - name: Проверить существование базы данных SQLite
-      run: sqlite3 database/database.sqlite ".databases"
-    - name: Run test & publish code coverage
-      run: php artisan test
-      #uses: paambaati/codeclimate-action@v5.0.0
-      #env:
-        #CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      #with:
-        #coverageCommand: make test-coverage
-        #coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
-        #debug: true
+      - name: Setup project
+        run: make setup
+
+      - name: Check lint
+        run: make lint
+
+      - name: Run tests & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
