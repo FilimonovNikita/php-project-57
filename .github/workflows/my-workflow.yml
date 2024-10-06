@@ -36,7 +36,7 @@ jobs:
       run: make setup
 
     - name: Вывести список таблиц в базе данных
-      run: sqlite3 database.db ".tables"
+      run: sqlite3 database/database.sqlite ".tables"
 
     - name: Run lint
       run: make lint
