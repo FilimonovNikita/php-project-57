@@ -33,7 +33,8 @@ jobs:
 
     - name: Вывести список таблиц в базе данных
       run: sqlite3 database/database.sqlite ".tables"
-
+    - name: Проверить доступность таблицы users в тестах
+      run: sqlite3 database/database.sqlite "SELECT * FROM users"
     - name: Setup project
       run: make setup
     - name: Run linter
