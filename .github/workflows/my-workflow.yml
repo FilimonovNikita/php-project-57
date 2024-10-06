@@ -35,6 +35,9 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: make setup
 
+    - name: Вывести список таблиц в базе данных
+      run: sqlite3 database.db ".tables"
+
     - name: Run lint
       run: make lint
     - name: Run test
