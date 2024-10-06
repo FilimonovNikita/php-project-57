@@ -22,19 +22,16 @@ jobs:
 
     - name: Prepare Laravel Application
       run: |
-        cp .env.ci .env
         php artisan key:generate
 
-    #- name: Create temporary sqlite database
-      #run: |
-        #mkdir -p database
-        #touch database/database.sqlite
-    #- name: Run laravel database migrations
-      #env:
-        #DB_CONNECTION: sqlite
-        #DB_DATABASE: database/database.sqlite
-      #run: php artisan migrate --force
-    - name: Run setup
+    - name: Create temporary sqlite database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+    - name: Run laravel database migrations
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
       run: make setup
 
     - name: Run lint
