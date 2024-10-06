@@ -27,6 +27,8 @@ jobs:
       run: make setup
     - name: Run linter
       run: make lint
+    - name: Проверить существование базы данных SQLite
+      run: sqlite3 database/database.sqlite ".databases"
     - name: Run test & publish code coverage
       uses: paambaati/codeclimate-action@v5.0.0
       env:
