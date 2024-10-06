@@ -8,7 +8,7 @@ start-frontend:
 	npm run dev
 
 setup:
-	php artisan migrate
+	php artisan migrate:refresh
 	php artisan db:seed
 	npm ci
 	npm run build
