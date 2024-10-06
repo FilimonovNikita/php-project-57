@@ -22,6 +22,7 @@ jobs:
 
     - name: Prepare Laravel Application
       run: |
+        cp -n .env.example .env
         php artisan key:generate
 
     - name: Create temporary sqlite database
