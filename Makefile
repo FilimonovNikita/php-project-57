@@ -10,6 +10,7 @@ start-frontend:
 setup:
 	cp -n .env.example .env || true
 	composer install
+	php artisan migrate
 	npm ci
 	php artisan key:generate
 	npm run build
