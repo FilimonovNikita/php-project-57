@@ -31,6 +31,8 @@ jobs:
     - name: Проверить информацию о базе данных
       run: php artisan db:show
 
+    - name: Проверить логи ошибок
+      run: cat /tmp/cc-reporter.log
     - name: Вывести список таблиц в базе данных
       run: sqlite3 database/database.sqlite ".tables"
     - name: Проверить существование таблицы users
