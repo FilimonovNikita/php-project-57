@@ -8,9 +8,10 @@ start-frontend:
 	npm run dev
 
 setup:
-	php artisan migrate:refresh
-	php artisan db:seed
+	cp -n .env.example .env || true
+	composer install
 	npm ci
+	php artisan key:generate
 	npm run build
 
 watch:

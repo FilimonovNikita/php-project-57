@@ -20,30 +20,15 @@ jobs:
     - name: Run composer install
       run: composer install -n --prefer-dist
 
-    - name: Prepare Laravel Application
-      run: |
-        cp -n .env.example .env
-        php artisan key:generate
-
-    - name: Create temporary sqlite database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-    - name: Run laravel database migrations
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: make setup
-
     - name: Вывести список таблиц в базе данных
       run: sqlite3 database/database.sqlite ".tables"
 
-    - name: Run lint
+    - name: Setup project
+      run: make setup
+    - name: Run linter
       run: make lint
-    - name: Run test
-      run: make test
     - name: Run test & publish code coverage
-      uses: paambaati/codeclimate-action@v4.0.0
+      uses: paambaati/codeclimate-action@v5.0.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       #with:
