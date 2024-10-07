@@ -41,7 +41,9 @@ jobs:
         run: make lint
 
       - name: Db_show22
-        run: php artisan db:show
+        run: 
+          cat.env
+          php artisan db:show
         continue-on-error: true
 
       - name: Run tests & publish code coverage
