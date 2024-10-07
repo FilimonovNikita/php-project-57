@@ -12,7 +12,7 @@ setup:
 	npm run build
 
 migrate:
-	php artisan migrate
+	php artisan migrate --seed --env=testing
 
 console:
 	php artisan tinker
