@@ -46,7 +46,7 @@ jobs:
         run: make lint
 
       - name: Db_show22
-        run: 
+        run: |
           cat .env
           php artisan db:show
         continue-on-error: true
