@@ -95,9 +95,8 @@ class TaskLabelController extends Controller
     public function destroy(TaskLabel $taskLabel)
     {
         Log::info('Метод destroy вызван');
-        //$taskLabel->load('tasks');
-        if ($taskLabel->task->count() > 0) {
-            flash(__('task_label.flash.delete_error'))->error();
+        if ($taskLabel->tasks->count() > 0) {
+            flash(__('flashes.task_statuses.error'))->error();
             return back();
         }
         $taskLabel->delete();
