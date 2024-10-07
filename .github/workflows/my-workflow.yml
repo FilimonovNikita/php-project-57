@@ -8,14 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Db_show
-        run: php artisan db:show
       - uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3.12'
+
+      - name: Db_show
+        run: php artisan db:show
 
       - name: Setup project
         run: make setup
