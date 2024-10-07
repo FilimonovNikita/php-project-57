@@ -20,6 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install sqlite3
 
+      - name: Create SQLite database
+        run: |
+          sqlite3 database.sqlite ""
+
       - name: Db_show1
         run: php artisan db:show
         continue-on-error: true
