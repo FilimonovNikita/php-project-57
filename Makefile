@@ -1,30 +1,60 @@
 start:
 	php artisan serve --host 0.0.0.0
 
-start-frontend:
+build-frontend:
 	npm run dev
 
-setup:
-	composer install
-	cp -n .env.example .env
-	php artisan key:generate
-	npm install
+setup: env-prepare install key prepare-db
 	npm run build
 
-migrate:
-	php artisan migrate --seed
+env-prepare:
+	cp -n .env.example .env
 
-console:
-	php artisan tinker
+install:
+	composer install
+	npm ci
+
+key:
+	php artisan key:gen --ansi
+
+prepare-db:
+	php artisan migrate:fresh --seed
+
+validate:
+	composer validate
+
+lint:
+	composer exec --verbose phpcs -- --standard=PSR12  tests/ app/ routes/ lang/ database/
+
+lint-fix:
+	composer exec --verbose phpcbf -- --standard=PSR12  tests/ app/ routes/ lang/ database/
+
+phpstan:
+	vendor/bin/phpstan analyse tests/ app/ lang/ database/ src/
 
 test:
 	php artisan test
 
 test-coverage:
-	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
+	XDEBUG_MODE=coverage php artisan test --coverage-clover ./build/logs/clover.xml
 
-lint:
-	composer exec --verbose phpcs -- --standard=PSR12 app routes tests
+compose:
+	docker-compose up
 
-validate:
-	composer validate
+compose-test:
+	docker-compose run web make test
+
+compose-bash:
+	docker-compose run web bash
+
+compose-setup: compose-build
+	docker-compose run web make setup
+
+compose-build:
+	docker-compose build
+
+compose-db:
+	docker-compose exec db psql -U postgres
+
+compose-down:
+	docker-compose down -v
