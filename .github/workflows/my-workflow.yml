@@ -35,9 +35,14 @@ jobs:
         run: |
           vendor/bin/phpunit
           php artisan db:show --format=json
+        continue-on-error: true
 
       - name: Check lint
         run: make lint
+
+      - name: Db_show22
+        run: php artisan db:show
+        continue-on-error: true
 
       - name: Run tests & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
