@@ -8,7 +8,8 @@ setup:
 	composer install
 	cp -n .env.example .env
 	php artisan key:generate
-	php artisan migrate --force
+	touch database/database.sqlite
+	php artisan migrate:refresh
 	npm install
 	npm run build
 
