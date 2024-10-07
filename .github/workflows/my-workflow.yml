@@ -30,6 +30,12 @@ jobs:
       - name: Db_show2
         run: php artisan db:show
         continue-on-error: true
+
+      - name: Run tests
+        run: |
+          vendor/bin/phpunit
+          php artisan db:show
+
       - name: Check lint
         run: make lint
 
@@ -41,6 +47,6 @@ jobs:
           coverageCommand: make test-coverage
           coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
           debug: true
-      - name: Db_show2
+      - name: Db_show3
         run: php artisan db:show
         continue-on-error: true
