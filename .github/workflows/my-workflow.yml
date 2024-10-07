@@ -27,8 +27,8 @@ jobs:
       - name: Setup project
         run: make setup
 
-      - name: Make migrationa
-        run: make migration
+      - name: Make migrate
+        run: make migrate
 
       - name: Db_show2
         run: php artisan db:show
