@@ -18,6 +18,9 @@ jobs:
       - name: Setup project
         run: make setup
 
+      - name: db:show
+        run: php artisan db:show
+
       - name: Check lint
         run: make lint
 
