@@ -17,6 +17,7 @@ jobs:
 
       - name: Db_show
         run: php artisan db:show
+        continue-on-error: true
 
       - name: Setup project
         run: make setup
