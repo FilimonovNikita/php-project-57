@@ -1,35 +1,34 @@
 name: PHP CI
 
-on:
-  pull_request:
-  push:
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup PHP without composer
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        tools: none
-    - name: PHP Security Checker
-      uses: StephaneBour/actions-php-security-checker@1.1
+      - uses: actions/checkout@v3
 
-    - name: Setup project
-      run: make setup
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3.12'
 
-    - name: Check lint
-      run: make lint
+      - name: Setup project
+        run: make setup
 
-    #- name: Execute tests via PHPUnit
-    #  run: make test-coverage
-    #- name: Show test coverage
-    #  uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      #with:
-        #coverageCommand: make test-coverage
-        #coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
-        #debug: true
+      - name: db:show
+        run: php artisan db:show
+
+      - name: Check lint
+        run: make lint
+
+      - name: Run tests & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+          debug: true
