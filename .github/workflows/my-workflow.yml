@@ -15,7 +15,7 @@ jobs:
         with:
           php-version: '8.3.12'
 
-      - name: Db_show
+      - name: Db_show1
         run: php artisan db:show
         continue-on-error: true
 
