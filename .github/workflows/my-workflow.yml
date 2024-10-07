@@ -31,10 +31,8 @@ jobs:
         run: php artisan db:show
         continue-on-error: true
 
-      - name: Run tests
-        run: |
-          vendor/bin/phpunit
-          php artisan db:show
+      - name: Run tests run: | vendor/bin/phpunit php artisan db
+        --format=json
 
       - name: Check lint
         run: make lint
