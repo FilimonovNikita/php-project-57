@@ -27,11 +27,9 @@ jobs:
       - name: Setup project
         run: make setup
 
-      - name: Set environment variables
+      - name: Make migrate
         env:
           DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
-      - name: Make migrate
         run: make migrate
 
       - name: Db_show2
