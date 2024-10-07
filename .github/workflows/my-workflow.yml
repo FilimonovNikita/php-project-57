@@ -15,6 +15,13 @@ jobs:
         with:
           php-version: '8.3.12'
 
+      - name: Set up SQLite
+        uses: actions/setup-sqlite@v1
+        with:
+          db-file: mydb.sqlite
+          username: user1
+          password: ${{ secrets.DB_PASSWORD }}
+
       - name: Db_show1
         run: php artisan db:show
         continue-on-error: true
