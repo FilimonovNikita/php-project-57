@@ -42,7 +42,7 @@ jobs:
 
       - name: Db_show22
         run: 
-          cat.env
+          cat .env
           php artisan db:show
         continue-on-error: true
 
