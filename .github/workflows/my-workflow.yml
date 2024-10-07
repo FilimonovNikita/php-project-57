@@ -27,6 +27,9 @@ jobs:
       - name: Setup project
         run: make setup
 
+      - name: Make migrationa
+        run: make migration
+
       - name: Db_show2
         run: php artisan db:show
         continue-on-error: true
