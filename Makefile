@@ -24,8 +24,8 @@ validate:
 	composer validate
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12  tests/ app/ routes/ lang/ database/
-
+	composer exec --verbose phpcs -- --standard=PSR12 app routes tests
+	
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12  tests/ app/ routes/ lang/ database/
 
