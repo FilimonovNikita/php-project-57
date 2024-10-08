@@ -13,14 +13,14 @@ class TaskLabelPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
-        return true; // или ваша логика проверки
+        return true; //
     }
 
-    public function view(User $user, TaskLabel $taskLabel)
+    public function view(?User $user, TaskLabel $taskLabel)
     {
-        return true; // или ваша логика проверки
+        return true; // 
     }
 
     /**

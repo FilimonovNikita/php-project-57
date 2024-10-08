@@ -51,7 +51,7 @@ class TaskLabelController extends Controller
         $taskLabel->fill($data);
 
         $taskLabel->save();
-        flash(__('label.flash.store'))->success();
+        flash(__('task_label.flash.store'))->success();
 
         return redirect()
             ->route('task_labels.index');
@@ -83,7 +83,7 @@ class TaskLabelController extends Controller
         $taskLabel->fill($data);
 
         $taskLabel->save();
-        flash(__('label.flash.update'))->success();
+        flash(__('task_label.flash.update'))->success();
 
         return redirect()
             ->route('task_labels.index');
@@ -96,7 +96,7 @@ class TaskLabelController extends Controller
     {
         Log::info('Метод destroy вызван');
         if ($taskLabel->task->count() > 0) {
-            flash(__('flashes.task_statuses.error'))->error();
+            flash(__('flashes.task_label.error'))->error();
             return back();
         }
         $taskLabel->delete();
