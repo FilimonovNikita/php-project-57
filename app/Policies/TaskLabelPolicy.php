@@ -20,7 +20,7 @@ class TaskLabelPolicy
 
     public function view(?User $user, TaskLabel $taskLabel)
     {
-        return true; // 
+        return true; //
     }
 
     /**
