@@ -42,7 +42,9 @@
                                 class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_status.index.delete') }}</button>
+                                <button type="submit" class="text-red-600 hover:text-red-900"
+                                data-click="deleteTaskStatus">
+                                {{ __('task_status.index.delete') }}</button>
                             </form>
                             @endcan
                                 <a href="{{ route('task_statuses.edit', $status->id) }}" class="text-blue-600 hover:text-blue-900">
