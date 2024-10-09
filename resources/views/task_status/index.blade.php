@@ -57,6 +57,9 @@
             </tbody>
         </table>
         </div>
+        <div class="mt-4">
+            {{ $taskStatus->links() }}
+        </div>
         <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
     </div>
 @endSection
