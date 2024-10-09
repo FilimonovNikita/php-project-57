@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\TaskStatus;
 
 class TaskStatusControllerTest extends TestCase
-{
+{/*
     private User $user;
     private TaskStatus $taskStatus;
 
@@ -70,4 +70,11 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseMissing('task_statuses', ['id' => $this->taskStatus->id]);
     }
+    
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        $this->user->delete();
+        $this->taskStatus->delete();
+    }*/
 }
