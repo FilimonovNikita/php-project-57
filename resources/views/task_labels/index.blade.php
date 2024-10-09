@@ -3,12 +3,14 @@
 @section('content')
 <div class="grid col-span-full">
     <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_label.index.header') }}</h1>
+    @auth  
         <div>
             <a href="{{route('task_labels.create')}}" 
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {{ __('task_label.index.create') }}           
             </a>
         </div>
+    @endauth
     <table class="mt-4">
         <thead class="border-b-2 border-solid border-black text-left">
             <tr>
