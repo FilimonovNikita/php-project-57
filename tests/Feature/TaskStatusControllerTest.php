@@ -9,7 +9,6 @@ use App\Models\TaskStatus;
 
 class TaskStatusControllerTest extends TestCase
 {
-    /*
     private User $user;
     private TaskStatus $taskStatus;
 
@@ -77,5 +76,5 @@ class TaskStatusControllerTest extends TestCase
         parent::tearDown();
         $this->user->delete();
         $this->taskStatus->delete();
-    }*/
+    }
 }

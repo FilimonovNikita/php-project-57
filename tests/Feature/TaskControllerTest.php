@@ -12,7 +12,7 @@ class TaskControllerTest extends TestCase
 {
     private User $user;
     private Task $task;
-/*
+
     public function setUp(): void
     {
         parent::setUp();
@@ -73,13 +73,5 @@ class TaskControllerTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseMissing('tasks', ['id' => $this->task->id]);
-    }*/
-/*
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        // Удалите связанные задачи перед удалением пользователя
-        $this->task->delete();
-        $this->user->delete();
-    }*/
+    }
 }

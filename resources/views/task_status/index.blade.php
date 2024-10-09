@@ -43,7 +43,6 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-900"
-                                onclick="return confirm('{{ __(task_status.index.delete_confirm) }}')"
                                 >{{ __('task_status.index.delete') }}</button>
                             </form>
                             @endcan
