@@ -18,7 +18,9 @@
                 <th>{{ __('task_label.index.name') }}</th>
                 <th>{{ __('task_label.index.description') }}</th>
                 <th>{{ __('task_label.index.created_at') }}</th>
+                @auth
                 <th>{{ __('task_label.index.actions') }}</th>
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -28,20 +30,20 @@
                 <td>{{$label->name}}</td>
                 <td>{{$label->description}}</td>
                 <td>{{$label->formattedDate}}</td>
+                @auth
                 <td>
-                    @can('delete', $label)
-                        <form data-confirm="{{ __('task_labels.index.delete_confirm') }}"
-                            action="{{ route('labels.destroy', $label->id) }}"
-                            method="POST" 
-                            class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_label.index.delete') }}</button>
-                        </form>
-                    @endcan
+                    <form data-confirm="{{ __('task_labels.index.delete_confirm') }}"
+                        action="{{ route('labels.destroy', $label->id) }}"
+                        method="POST" 
+                        class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_label.index.delete') }}</button>
+                    </form>
                     <a class="text-blue-600 hover:text-blue-900" href="{{route ('labels.edit', $label->id)}}">
                     {{ __('task_label.index.edit') }}</a>
                 </td>
+                @endauth
             </tr>
             @endforeach
         </tbody>
