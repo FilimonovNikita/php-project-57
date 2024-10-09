@@ -30,7 +30,7 @@
                     type="submit">
                     {{ __('task_label.create.button') }}
                 </button>
-                <a href="{{ route('task_labels.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
+                <a href="{{ route('labels.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
                     {{ __('task_label.create.back') }}</a>
             </div>
         </div>
