@@ -28,8 +28,8 @@
                 <td>{{$label->name}}</td>
                 <td>{{$label->description}}</td>
                 <td>{{$label->formattedDate}}</td>
+                @auth
                 <td>
-                    @can('delete', $label)
                         <form data-confirm="{{ __('task_label.index.delete_confirm') }}"
                             action="{{ route('labels.destroy', $label->id) }}"
                             method="POST" 
@@ -38,10 +38,10 @@
                             @method('DELETE')
                             <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_label.index.delete') }}</button>
                         </form>
-                    @endcan
                     <a class="text-blue-600 hover:text-blue-900" href="{{route ('labels.edit', $label->id)}}">
                     {{ __('task_label.index.edit') }}</a>
                 </td>
+                @endauth
             </tr>
             @endforeach
         </tbody>
