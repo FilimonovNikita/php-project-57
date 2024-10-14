@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use App\Models\TaskLabel;
+use App\Models\Label;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
@@ -50,7 +50,7 @@ class TaskController extends Controller
         $tasks = new Task();
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.create', compact("tasks", "taskStatus", "users", 'taskLabels'));
     }
 
@@ -92,7 +92,7 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.show', compact("task", "taskStatus", "users", 'taskLabels'));
     }
 
@@ -103,7 +103,7 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.edit', compact("task", "taskStatus", "users", "taskLabels"));//
     }
 

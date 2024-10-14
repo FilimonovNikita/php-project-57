@@ -5,7 +5,7 @@
 <div class="grid col-span-full">
     <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_label.create.header') }}</h1>
     <form class="w-50" method="POST" 
-        action="{{route('task_labels.store')}}">
+        action="{{route('labels.store')}}">
         @csrf
         <div class="flex flex-col">
             <div>
@@ -30,7 +30,7 @@
                     type="submit">
                     {{ __('task_label.create.button') }}
                 </button>
-                <a href="{{ route('task_labels.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
+                <a href="{{ route('labels.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
                     {{ __('task_label.create.back') }}</a>
             </div>
         </div>

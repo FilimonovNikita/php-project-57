@@ -5,7 +5,7 @@
     <h1 class="mb-5" style="font-size: 3rem;">{{ __('task_label.index.header') }}</h1>
     @auth  
         <div>
-            <a href="{{route('task_labels.create')}}" 
+            <a href="{{route('labels.create')}}" 
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {{ __('task_label.index.create') }}           
             </a>
@@ -31,7 +31,7 @@
                 <td>
                     @can('delete', $label)
                         <form data-confirm="{{ __('task_label.index.delete_confirm') }}"
-                            action="{{ route('task_labels.destroy', $label->id) }}"
+                            action="{{ route('labels.destroy', $label->id) }}"
                             method="POST" 
                             class="inline">
                             @csrf
@@ -39,7 +39,7 @@
                             <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_label.index.delete') }}</button>
                         </form>
                     @endcan
-                    <a class="text-blue-600 hover:text-blue-900" href="{{route ('task_labels.edit', $label->id)}}">
+                    <a class="text-blue-600 hover:text-blue-900" href="{{route ('labels.edit', $label->id)}}">
                     {{ __('task_label.index.edit') }}</a>
                 </td>
             </tr>
