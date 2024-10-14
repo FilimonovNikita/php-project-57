@@ -43,7 +43,8 @@ class LabelController extends Controller
                 'description' => 'nullable|string',
             ],
             [
-                'name.unique' => __('task_statuses.validation.unique')
+                'name.required' => __('task_label.validation.required'),
+                'name.unique' => __('task_label.validation.unique')
             ]
         );
         $taskLabel = new Label();
@@ -76,7 +77,8 @@ class LabelController extends Controller
                 'description' => 'nullable|string',
             ],
             [
-                'name.unique' => __('task_statuses.validation.unique')
+                'name.required' => __('task_label.validation.required'),
+                'name.unique' => __('task_label.validation.unique')
             ]
         );
 

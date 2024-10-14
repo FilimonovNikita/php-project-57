@@ -15,6 +15,9 @@
                 <input class="rounded border-gray-300 w-1/3" 
                 type="text" name="name" id="name">
             </div>
+            @error('name')
+                    <div class="text-rose-600">{{ $message }}</div>
+            @enderror
             <div class="mt-2">
                 <label for="description">{{ __('task_label.create.description') }}</label>
             </div>
