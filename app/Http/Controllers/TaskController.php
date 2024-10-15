@@ -67,7 +67,9 @@ class TaskController extends Controller
                 'assigned_to_id' => 'nullable|integer',
             ],
             [
-                'name.unique' => __('task.validation.unique')
+                'name.required' => __('task.validation.required'),
+                'name.unique' => __('task.validation.unique'),
+                'status_id.required' => __('task.validation.required'),
             ]
         );
 
@@ -119,17 +121,16 @@ class TaskController extends Controller
             'status_id' => 'required|integer',
             'label' => 'nullable|array',
         ], [
-            'name.unique' => __('task_statuses.validation.unique')
+            'name.required' => __('task.validation.required'),
+            'name.unique' => __('task.validation.unique'),
+            'status_id.required' => __('task.validation.required')
         ]);
 
-        $task = Auth::user()->createdTasks()->create($data);
+        $task->fill($data);
         $task->save();
 
-        $labels = $request->input('labels');
-
-        if ($labels) {
-            $task->tasklabel()->attach($labels);
-        }
+        $labels = Arr::whereNotNull($request->input('labels') ?? []);
+        $task->tasklabel()->sync($labels);
 
         flash(__('task.flash.update'))->success();
         return redirect()
