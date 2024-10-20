@@ -47,7 +47,7 @@ class TaskLabelControllerTest extends TestCase
 
     public function testEdit(): void
     {
-        $response = $this->get(route('labels.edit', ['task_label' => $this->label]));
+        $response = $this->get(route('labels.edit', ['label' => $this->label]));
         $response->assertOk();
     }
 
@@ -55,7 +55,7 @@ class TaskLabelControllerTest extends TestCase
     {
         $data = ['name' => 'NewLabel'];
 
-        $response = $this->patch(route('labels.update', ['task_label' => $this->label]), $data);
+        $response = $this->patch(route('labels.update', ['label' => $this->label]), $data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('task_labels', $data);
@@ -63,7 +63,7 @@ class TaskLabelControllerTest extends TestCase
 
     public function testDelete(): void
     {
-        $response = $this->delete(route('labels.destroy', ['task_label' => $this->label]));
+        $response = $this->delete(route('labels.destroy', ['label' => $this->label]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseMissing('labels', ['id' => $this->label->id]);
@@ -71,8 +71,8 @@ class TaskLabelControllerTest extends TestCase
 
     public function testDeleteIfAssociatedWithTask(): void
     {
-        $this->task->taskLabel()->attach(['task_labels' => $this->label->id]);
-        $response = $this->delete(route('labels.destroy', ['task_label' => $this->label]));
+        $this->task->taskLabel()->attach(['labels' => $this->label->id]);
+        $response = $this->delete(route('labels.destroy', ['label' => $this->label]));
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
         $response->assertRedirect();
     }

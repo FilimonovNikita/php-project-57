@@ -7,21 +7,22 @@
         <div class="w-full flex items-center mb-4">
             <form method="GET" action="{{ route('tasks.index') }}" class="flex space-x-2">
                 <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]">
-                    <option value selected="selected">{{ __('task.index.status') }}</option>
-                    @foreach($taskStatus as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
+                <option value="" {{ empty($filter['status_id']) ? 'selected' : '' }}>{{ __('task.index.status') }}</option>
+                @foreach($taskStatus as $id => $name)
+                    <option value="{{ $id }}" {{ (isset($filter['status_id']) && $filter['status_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
+                @endforeach
                 </select>
-                <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_id]">
-                    <option value selected="selected">{{ __('task.index.created_by') }}</option>
+                <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]">
+                <option value="" {{ empty($filter['created_by_id']) ? 'selected' : '' }}>{{ __('task.index.created_by') }}</option>
                     @foreach ($users as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
+                        <option value="{{ $id }}" {{ (isset($filter['created_by_id']) && $filter['created_by_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
-                </select>
+                </select>   
+
                 <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]">
-                    <option value selected="selected">{{ __('task.index.assigned_to') }}</option>
+                    <option value="" {{ empty($filter['assigned_to_id']) ? 'selected' : '' }}>{{ __('task.index.assigned_to') }}</option>
                     @foreach ($users as $id => $name)
-                        <option value="{{ $id }}">{{ $name }}</option>
+                        <option value="{{ $id }}" {{ (isset($filter['assigned_to_id']) && $filter['assigned_to_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
                 </select>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">
