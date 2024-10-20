@@ -58,7 +58,7 @@ class TaskLabelControllerTest extends TestCase
         $response = $this->patch(route('labels.update', ['label' => $this->label]), $data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('task_labels', $data);
+        $this->assertDatabaseHas('labels', $data);
     }
 
     public function testDelete(): void
