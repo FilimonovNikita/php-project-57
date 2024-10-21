@@ -47,7 +47,7 @@ class TaskLabelControllerTest extends TestCase
 
     public function testEdit(): void
     {
-        $response = $this->get(route('labels.edit', ['label' => $this->label]));
+        $response = $this->get(route('labels.edit', ['labels' => $this->label]));
         $response->assertOk();
     }
 
@@ -55,7 +55,7 @@ class TaskLabelControllerTest extends TestCase
     {
         $data = ['name' => 'NewLabel'];
 
-        $response = $this->patch(route('labels.update', ['label' => $this->label]), $data);
+        $response = $this->patch(route('labels.update', ['labels' => $this->label]), $data);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('labels', $data);

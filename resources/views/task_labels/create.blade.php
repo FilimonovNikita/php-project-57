@@ -22,10 +22,7 @@
                 <label for="description">{{ __('task_label.create.description') }}</label>
             </div>
             <div class="mt-2">
-                <textarea 
-                    class="rounded border-gray-300 w-1/3 h-32" 
-                    name="description" id="description">
-                </textarea>
+                <textarea class="rounded border-gray-300 w-1/3 h-32 mt-2" id="description" name="description"></textarea>
             </div>
             <div class="mt-2">
                 <button 
