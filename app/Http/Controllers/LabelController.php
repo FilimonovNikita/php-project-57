@@ -104,8 +104,7 @@ class LabelController extends Controller
         $label->delete();
         flash(__('task_label.flash.delete'))->success();
 
-        return redirect()->
-            route("labels.index");
+        return redirect()->back();
         //
     }
 }

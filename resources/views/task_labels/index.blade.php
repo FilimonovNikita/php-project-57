@@ -32,11 +32,12 @@
                 <td>{{$label->formattedDate}}</td>
                 @auth
                 <td>
-                    <a href="{{ route('labels.destroy', $label->id) }}"
-                            data-confirm="{{ __('task_label.index.delete_confirm') }}"
-                            data-method="delete"
-                            class="text-red-600 hover:text-red-900">
-                            {{ __('task_label.index.delete') }}
+                    <a 
+                        href="{{ route('labels.destroy', $label->id) }}" 
+                        data-confirm="{{ __('task_label.index.delete_confirm') }}" 
+                        data-method="delete"
+                        class="text-red-600 hover:text-red-900"> 
+                        {{ __('task_label.index.delete') }} 
                     </a>
                     <form data-confirm="{{ __('task_label.index.delete_confirm') }}"
                         action="{{ route('labels.destroy', $label->id) }}"
