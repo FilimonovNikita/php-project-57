@@ -44,8 +44,9 @@
                         @csrf 
                         @method('DELETE') 
                     </form> 
-                    <a class="text-blue-600 hover:text-blue-900" href="{{route ('labels.edit', $label->id)}}">
-                    {{ __('task_label.index.edit') }}</a>
+                    <a href="{{ route('labels.edit', $label->id) }}" class="text-blue-600 hover:text-blue-900">
+                        {{ __('labels.index.edit') }}
+                    </a>
                 </td>
                 @endauth
             </tr>
