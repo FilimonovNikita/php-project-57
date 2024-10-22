@@ -47,12 +47,14 @@ class TaskLabelControllerTest extends TestCase
 
     public function testEdit(): void
     {
+        $this->actingAs($this->user);
         $response = $this->get(route('labels.edit', ['label' => $this->label]));
         $response->assertOk();
     }
 
     public function testUpdate(): void
     {
+        $this->actingAs($this->user);
         $data = ['name' => 'NewLabel'];
 
         $response = $this->patch(route('labels.update', ['label' => $this->label]), $data);
