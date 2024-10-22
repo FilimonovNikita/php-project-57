@@ -43,6 +43,6 @@ class Task extends Model
     }
     public function tasklabel(): BelongsToMany
     {
-        return $this->belongsToMany(taskLabel::class, 'label_task', 'task_id', 'label_id');
+        return $this->belongsToMany(Label::class, 'label_task', 'task_id', 'label_id');
     }
 }

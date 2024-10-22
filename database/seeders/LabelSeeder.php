@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\TaskLabel;
+use App\Models\Label;
 
 class LabelSeeder extends Seeder
 {
@@ -33,7 +33,7 @@ class LabelSeeder extends Seeder
         ];
 
         foreach ($labels as $label) {
-            TaskLabel::firstOrCreate($label);
+            Label::firstOrCreate($label);
         }
     }
 }

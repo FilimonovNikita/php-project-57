@@ -17,6 +17,13 @@
       0 => 'Laravel\\Breeze\\BreezeServiceProvider',
     ),
   ),
+  'laravel/dusk' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Dusk\\DuskServiceProvider',
+    ),
+  ),
   'laravel/passport' => 
   array (
     'providers' => 
@@ -69,6 +76,17 @@
     'aliases' => 
     array (
       'Sentry' => 'Sentry\\Laravel\\Facade',
+    ),
+  ),
+  'spatie/laravel-html' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Html\\HtmlServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Html' => 'Spatie\\Html\\Facades\\Html',
     ),
   ),
   'spatie/laravel-query-builder' => 

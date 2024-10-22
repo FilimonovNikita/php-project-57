@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.alert-success {
+    background-color: #bbf7d0;
+}
+
+.alert-danger {
+    background-color: #fecdd3;
+}
