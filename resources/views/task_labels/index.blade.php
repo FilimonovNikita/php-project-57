@@ -32,21 +32,18 @@
                 <td>{{$label->formattedDate}}</td>
                 @auth
                 <td>
-                    <a 
-                        href="{{ route('labels.destroy', $label->id) }}" 
-                        data-confirm="{{ __('task_label.index.delete_confirm') }}" 
-                        data-method="delete"
-                        class="text-red-600 hover:text-red-900"> 
-                        {{ __('task_label.index.delete') }} 
-                    </a>
-                    <form data-confirm="{{ __('task_label.index.delete_confirm') }}"
-                        action="{{ route('labels.destroy', $label->id) }}"
-                        method="POST" 
-                        class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_label.index.delete') }}</button>
-                    </form>
+                    <a href="#" class="text-red-500 hover:text-red-700 ml-2" 
+                    onclick="event.preventDefault();  
+                                if(confirm('Вы уверены, что хотите удалить эту метку?')) {  
+                                    document.getElementById('delete-form-{{ $label->id }}').submit();  
+                                }"> 
+                    Удалить 
+                    </a> 
+                
+                    <form id="delete-form-{{ $label->id }}" action="{{ route('labels.destroy', $label->id) }}" method="POST" class="hidden"> 
+                        @csrf 
+                        @method('DELETE') 
+                    </form> 
                     <a class="text-blue-600 hover:text-blue-900" href="{{route ('labels.edit', $label->id)}}">
                     {{ __('task_label.index.edit') }}</a>
                 </td>
