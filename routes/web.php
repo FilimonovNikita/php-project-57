@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::resources([
     'task_statuses' => TaskStatusController::class,
     'tasks' => TaskController::class,
+
     'labels' => LabelController::class
 ]);
 
