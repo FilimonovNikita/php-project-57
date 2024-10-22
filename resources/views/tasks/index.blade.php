@@ -68,14 +68,18 @@
                     @auth
                         <td>
                             @can('delete', $task)
-                            <form data-confirm="{{ __('tasks.index.delete_confirmation') }}"
-                                action="{{ route('tasks.destroy', $task->id) }}" 
-                                method="POST" 
-                                class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task.index.delete') }}</button>
-                            </form>
+                            <a href="#" class="text-red-500 hover:text-red-700 ml-2"
+                                onclick="event.preventDefault();
+                                if(confirm(`{{ __('task.index.delete_confirm') }}`)) {
+                                    document.getElementById('delete-form-{{ $task->id }}').submit();
+                                }">
+                                {{ __('task.index.delete') }}
+                                </a>
+                            
+                                <form id="delete-form-{{ $task->id }}" action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="hidden"> 
+                                    @csrf 
+                                    @method('DELETE') 
+                                </form> 
                             @endcan
                             @can('update', $task)
                             <a href="{{ route('tasks.edit', $task) }}" class="text-blue-600 hover:text-blue-900">

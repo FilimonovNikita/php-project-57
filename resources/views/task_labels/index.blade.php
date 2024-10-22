@@ -32,13 +32,13 @@
                 <td>{{$label->formattedDate}}</td>
                 @auth
                 <td>
-                    <a href="#" class="text-red-500 hover:text-red-700 ml-2" 
-                    onclick="event.preventDefault();  
-                                if(confirm('Вы уверены, что хотите удалить эту метку?')) {  
-                                    document.getElementById('delete-form-{{ $label->id }}').submit();  
-                                }"> 
-                    Удалить 
-                    </a> 
+                <a href="#" class="text-red-500 hover:text-red-700 ml-2"
+                    onclick="event.preventDefault();
+                                if(confirm(`{{ __('task_label.index.delete_confirm') }}`)) {
+                                    document.getElementById('delete-form-{{ $label->id }}').submit();
+                                }">
+                    {{ __('task_label.index.delete') }}
+                    </a>
                 
                     <form id="delete-form-{{ $label->id }}" action="{{ route('labels.destroy', $label->id) }}" method="POST" class="hidden"> 
                         @csrf 
