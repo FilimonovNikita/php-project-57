@@ -2,44 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use App\Models\Label;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Auth\Access\AuthorizationException;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        //$this->middleware('guest');
-        $this->authorizeResource(Task::class);
-    }
-
     public function index(Request $request)
     {
         $filter = $request->input('filter');
         $tasks = QueryBuilder::for(Task::class)
-        ->allowedFilters([
-            AllowedFilter::exact('status_id'),
-            AllowedFilter::exact('assigned_to_id'),
-            AllowedFilter::exact('created_by_id')
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('assigned_to_id'),
             ])
-        ->orderBy('id')
-        ->paginate(15);
-        //$tasks = Task::orderby("id")->paginate(15);
-        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
-        $users = User::orderby('id')->pluck('name', "id");
-        return view('tasks.index', compact("tasks", "taskStatus", "users", "filter"));
+            ->orderBy('id')
+            ->paginate();
+
+        $taskStatusesById = TaskStatus::pluck('name', 'id');
+        $usersById = User::pluck('name', 'id');
+
+        return view('task.index', compact('tasks', 'taskStatusesById', 'usersById', 'filter'));
     }
 
     /**
@@ -47,11 +44,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $tasks = new Task();
-        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
-        $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = Label::orderby('id')->pluck('name', "id");
-        return view('tasks.create', compact("tasks", "taskStatus", "users", 'taskLabels'));
+        $taskStatuses = TaskStatus::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+        $labels = Label::pluck('name', 'id');
+
+        return view('task.create', compact('taskStatuses', 'users', 'labels'));
     }
 
     /**
@@ -59,32 +56,26 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(
-            [
-                'name' => 'required|unique:tasks',
-                'status_id' => 'required|exists:task_statuses,id',
-                'description' => 'nullable|string',
-                'assigned_to_id' => 'nullable|integer',
-            ],
-            [
-                'name.required' => __('task.validation.required'),
-                'name.unique' => __('task.validation.unique'),
-                'status_id.required' => __('task.validation.required'),
-            ]
-        );
+        $data = $this->validate($request, [
+            'name' => 'required|max:255|unique:tasks',
+            'description' => 'string|max:500|nullable',
+            'status_id' => 'required',
+            'assigned_to_id' => 'nullable',
+        ], [
+            'name.required' => __('task.validation.required'),
+            'name.unique' => __('task.validation.unique'),
+            'status_id.required' => __('task.validation.required'),
+        ]);
 
         $task = Auth::user()->createdTasks()->create($data);
         $task->save();
 
-        $labels = $request->input('labels');
-
-        if ($labels) {
-            $task->tasklabel()->attach($labels);
-        }
+        $labels = Arr::whereNotNull($request->input('labels') ?? []);
+        $task->labels()->attach($labels);
 
         flash(__('task.flash.store'))->success();
 
-        return redirect()->route('tasks.index');//
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -92,10 +83,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
-        $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = Label::orderby('id')->pluck('name', "id");
-        return view('tasks.show', compact("task", "taskStatus", "users", 'taskLabels'));
+        return view('task.show', compact('task'));
     }
 
     /**
@@ -103,10 +91,11 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
-        $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = Label::orderby('id')->pluck('name', "id");
-        return view('tasks.edit', compact("task", "taskStatus", "users", "taskLabels"));//
+        $taskStatuses = TaskStatus::pluck('name', 'id');
+        $users = User::pluck('name', 'id');
+        $labels = Label::pluck('name', 'id');
+
+        return view('task.edit', compact('task', 'taskStatuses', 'users', 'labels'));
     }
 
     /**
@@ -114,27 +103,26 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:tasks,name,' . $task->id,
-            'description' => 'nullable|string',
-            'assigned_to_id' => 'nullable|integer',
-            'status_id' => 'required|integer',
-            'label' => 'nullable|array',
+        $data = $this->validate($request, [
+            'name' => 'required|max:255|unique:tasks,name,' . $task->id,
+            'description' => 'string|max:500|nullable',
+            'status_id' => 'required',
+            'assigned_to_id' => 'nullable',
         ], [
             'name.required' => __('task.validation.required'),
             'name.unique' => __('task.validation.unique'),
-            'status_id.required' => __('task.validation.required')
+            'status_id.required' => __('task.validation.required'),
         ]);
 
         $task->fill($data);
         $task->save();
 
         $labels = Arr::whereNotNull($request->input('labels') ?? []);
-        $task->tasklabel()->sync($labels);
+        $task->labels()->sync($labels);
 
         flash(__('task.flash.update'))->success();
-        return redirect()
-            ->route('tasks.index');
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -142,10 +130,9 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $task->delete();
         flash(__('task.flash.delete'))->success();
 
-        $task->delete();
-        return redirect()->
-            route('tasks.index');
+        return redirect()->route('tasks.index');
     }
 }

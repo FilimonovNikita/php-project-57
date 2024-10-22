@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Label;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('guest');
         $this->authorizeResource(Label::class);
     }
     /**
@@ -18,8 +16,8 @@ class LabelController extends Controller
      */
     public function index()
     {
-        $taskLabels = Label::orderby('id')->paginate(15);
-        return view("task_labels.index", compact("taskLabels"));//
+        $labels = Label::orderBy('id')->paginate();
+        return view('label.index', compact('labels'));
     }
 
     /**
@@ -27,9 +25,7 @@ class LabelController extends Controller
      */
     public function create()
     {
-        $taskLabel = new Label();
-        return view("task_labels.create", compact("taskLabel"));//
-        //
+        return view('label.create');
     }
 
     /**
@@ -37,58 +33,47 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(
-            [
-                'name' => 'required|unique:labels',
-                'description' => 'nullable|string',
-            ],
-            [
-                'name.required' => __('task_label.validation.required'),
-                'name.unique' => __('task_label.validation.unique')
-            ]
-        );
-        $taskLabel = new Label();
+        $data = $this->validate($request, [
+            'name' => 'required|max:255|unique:labels',
+            'description' => 'string|max:500|nullable',
+        ], [
+            'name.required' => __('label.validation.required'),
+            'name.unique' => __('label.validation.unique'),
+        ]);
 
-        $taskLabel->fill($data);
+        $label = new Label($data);
+        $label->save();
+        flash(__('label.flash.store'))->success();
 
-        $taskLabel->save();
-        flash(__('task_label.flash.store'))->success();
-
-        return redirect()
-            ->route('labels.index');
+        return redirect()->route('labels.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Label $taskLabel)
+    public function edit(Label $label)
     {
-        return view("task_labels.edit", compact("taskLabel"));////
+        return view('label.edit', compact('label'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Label $taskLabel)
+    public function update(Request $request, Label $label)
     {
-        $data = $request->validate(
-            [
-                'name' => 'required|unique:labels,name,' . $taskLabel->id,
-                'description' => 'nullable|string',
-            ],
-            [
-                'name.required' => __('task_label.validation.required'),
-                'name.unique' => __('task_label.validation.unique')
-            ]
-        );
+        $data = $this->validate($request, [
+            'name' => 'required|max:255|unique:labels,name,' . $label->id,
+            'description' => 'string|max:500|nullable',
+        ], [
+            'name.required' => __('label.validation.required'),
+            'name.unique' => __('label.validation.unique'),
+        ]);
 
-        $taskLabel->fill($data);
+        $label->fill($data);
+        $label->save();
+        flash(__('label.flash.update'))->success();
 
-        $taskLabel->save();
-        flash(__('task_label.flash.update'))->success();
-
-        return redirect()
-            ->route('labels.index');
+        return redirect()->route('labels.index');
     }
 
     /**
@@ -96,15 +81,14 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        Log::info('Метод destroy вызван');
-        if ($label->task->count() > 0) {
-            flash(__('flashes.task_label.error'))->error();
+        if ($label->tasks()->exists()) {
+            flash(__('label.flash.delete_error'))->error();
             return back();
         }
-        $label->delete();
-        flash(__('task_label.flash.delete'))->success();
 
-        return redirect()->back();
-        //
+        $label->delete();
+        flash(__('label.flash.delete'))->success();
+
+        return redirect()->route('labels.index');
     }
 }

@@ -7,20 +7,13 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        "./src/**/*.{html,js}",
-        "./src/resources/css/app.css"
     ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
-            components: {
-                h1: {
-                    fontSize: '3rem',
-                }
-            }
         },
     },
 

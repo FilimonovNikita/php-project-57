@@ -17,8 +17,8 @@ class LabelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
-            'description' => fake()->sentence()
+            'name' => fake()->unique()->word(),
+            'description' => fake()->sentence(),
         ];
     }
 }

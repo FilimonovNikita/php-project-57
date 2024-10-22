@@ -1,10 +1,9 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-
 import ujs from '@rails/ujs';
-ujs.start();
 
 window.Alpine = Alpine;
 
+ujs.start();
 Alpine.start();

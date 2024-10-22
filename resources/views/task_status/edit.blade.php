@@ -2,30 +2,25 @@
 
 @section('content')
     <div class="grid col-span-full">
-        <h1 class="mb-5" style="font-size: 3rem;">
+        <h1 class="mb-5">
             {{ __('task_status.edit.header') }}
         </h1>
 
-        <form action="{{ route('task_statuses.update', $taskStatus) }}" method="POST" class="w-50">
-            @csrf
-            @method('PATCH')
+        {{ Form::model($taskStatus, ['route' => ['task_statuses.update', $taskStatus], 'method' => 'PATCH', 'class' => 'w-50']) }}
             <div class="flex flex-col">
                 <div>
-                    <label for="name">{{ __('task_status.edit.name') }}</label>
+                    {{ Form::label('name', __('task_status.edit.name')) }}
                 </div>
                 <div class="mt-2">
-                    <input type="text" name="name" id="name" class="rounded border-gray-300 w-1/3" value="{{ old('name', $taskStatus->name) }}">
+                    {{ Form::text('name', null, ['class' => 'rounded border-gray-300 w-1/3']) }}
                 </div>
                 @error('name')
                     <div class="text-rose-600">{{ $message }}</div>
                 @enderror
                 <div class="mt-2">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        {{ __('task_status.edit.button') }}
-                    </button>
-                    <a href="{{ route('task_statuses.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">{{ __('task_status.edit.back') }}</a>
+                    {{ Form::submit(__('task_status.edit.button'), ['class' => 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded']) }}
                 </div>
             </div>
-        </form>
+        {{ Form::close() }}
     </div>
 @endsection

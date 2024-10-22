@@ -11,11 +11,11 @@ class TaskStatus extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function tasks(): HasMany
     {
-        return $this->hasMany(Task::class, "status_id");
+        return $this->hasMany(Task::class, 'status_id');
     }
 }
