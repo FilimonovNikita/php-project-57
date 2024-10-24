@@ -5,30 +5,23 @@
         <h1 class="mb-5" style="font-size: 3rem;">{{ __('task.index.header') }}</h1>
         
         <div class="w-full flex items-center mb-4">
-            <form method="GET" action="{{ route('tasks.index') }}" class="flex space-x-2">
-                <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]">
-                <option value="" {{ empty($filter['status_id']) ? 'selected' : '' }}>{{ __('task.index.status') }}</option>
-                @foreach($taskStatus as $id => $name)
-                    <option value="{{ $id }}" {{ (isset($filter['status_id']) && $filter['status_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
-                @endforeach
-                </select>
-                <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]">
-                <option value="" {{ empty($filter['created_by_id']) ? 'selected' : '' }}>{{ __('task.index.created_by') }}</option>
-                    @foreach ($users as $id => $name)
-                        <option value="{{ $id }}" {{ (isset($filter['created_by_id']) && $filter['created_by_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>   
+        {{ html()->form('GET', route('tasks.index'))->class('flex space-x-2')->open() }}
 
-                <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]">
-                    <option value="" {{ empty($filter['assigned_to_id']) ? 'selected' : '' }}>{{ __('task.index.assigned_to') }}</option>
-                    @foreach ($users as $id => $name)
-                        <option value="{{ $id }}" {{ (isset($filter['assigned_to_id']) && $filter['assigned_to_id'] == $id) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">
-                    Применить
-                </button>
-            </form>
+        {{ html()->select('filter[status_id]', ['' => __('task.index.status')] + $taskStatus->toArray(), $filter['status_id'] ?? null)
+            ->class('rounded border-gray-300') }}
+
+        {{ html()->select('filter[created_by_id]', ['' => __('task.index.created_by')] + $users->toArray(), $filter['created_by_id'] ?? null)
+            ->class('rounded border-gray-300') }}
+
+        {{ html()->select('filter[assigned_to_id]', ['' => __('task.index.assigned_to')] + $users->toArray(), $filter['assigned_to_id'] ?? null)
+            ->class('rounded border-gray-300') }}
+
+        {{ html()->button('Применить')
+            ->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2')
+            ->type('submit') }}
+
+        {{ html()->form()->close() }}
+
             @auth
             <div class="ml-auto">
                 <a href="{{ route('tasks.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
