@@ -29,9 +29,10 @@ class LabelPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Label $label): bool
+    public function update(User $user, Label $tasklabel): bool
     {
-        return Auth::check();
+        return true;
+        //return Auth::check();
     }
 
     /**

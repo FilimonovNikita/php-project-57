@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Label;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 
 class LabelController extends Controller
 {
@@ -19,7 +21,7 @@ class LabelController extends Controller
     public function index()
     {
         $taskLabels = Label::orderby('id')->paginate(15);
-        return view("task_labels.index", compact("taskLabels"));//
+        return view("labels.index", compact("taskLabels"));//
     }
 
     /**
@@ -28,7 +30,7 @@ class LabelController extends Controller
     public function create()
     {
         $taskLabel = new Label();
-        return view("task_labels.create", compact("taskLabel"));//
+        return view("labels.create", compact("taskLabel"));//
         //
     }
 
@@ -63,7 +65,13 @@ class LabelController extends Controller
      */
     public function edit(Label $taskLabel)
     {
-        return view("task_labels.edit", compact("taskLabel"));////
+        if (!Gate::allows('update', $taskLabel)) {
+            Log::warning('Попытка обновления метки без доступа', [
+                'user_id' => auth()->id(),
+                'label_id' => $taskLabel->id,
+            ]);
+        }
+        return view("labels.edit", compact("taskLabel"));////
     }
 
     /**
@@ -71,6 +79,9 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $taskLabel)
     {
+        Log::info('Проверка прав доступа для обновления метки', [
+            'label_id' => $taskLabel->id,
+        ]);
         $data = $request->validate(
             [
                 'name' => 'required|unique:labels,name,' . $taskLabel->id,

@@ -10,9 +10,9 @@ use App\Http\Controllers\LabelController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-
+/*
 Route::get('/verification.notice', 'Auth\VerificationController@notice')
-->name('verification.notice');
+->name('verification.notice');*/
 
 Route::get('/dashboard', function () {
     return view('dashboard');
