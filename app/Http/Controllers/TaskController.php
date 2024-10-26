@@ -77,7 +77,7 @@ class TaskController extends Controller
         $task->save();
 
         $labels = Arr::whereNotNull($request->input('labels') ?? []);
-        $task->tasklabel()->attach($labels);
+        $task->taskLabel()->attach($labels);
 
         flash(__('task.flash.store'))->success();
 
@@ -127,7 +127,7 @@ class TaskController extends Controller
         $task->save();
 
         $labels = Arr::whereNotNull($request->input('labels') ?? []);
-        $task->tasklabel()->sync($labels);
+        $task->taskLabel()->sync($labels);
 
         flash(__('task.flash.update'))->success();
         return redirect()
