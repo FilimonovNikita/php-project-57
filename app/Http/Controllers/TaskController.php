@@ -76,11 +76,8 @@ class TaskController extends Controller
         $task = Auth::user()->createdTasks()->create($data);
         $task->save();
 
-        $labels = $request->input('labels');
-
-        if ($labels) {
-            $task->tasklabel()->attach($labels);
-        }
+        $labels = Arr::whereNotNull($request->input('labels') ?? []);
+        $task->tasklabel()->attach($labels);
 
         flash(__('task.flash.store'))->success();
 

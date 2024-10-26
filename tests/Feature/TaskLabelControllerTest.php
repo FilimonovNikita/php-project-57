@@ -73,7 +73,7 @@ class TaskLabelControllerTest extends TestCase
 
     public function testDeleteIfAssociatedWithTask(): void
     {
-        $this->task->taskLabel()->attach(['labels' => $this->label->id]);
+        $this->task->taskLabel()->attach(['label' => $this->label->id]);
         $response = $this->delete(route('labels.destroy', ['label' => $this->label]));
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
         $response->assertRedirect();
