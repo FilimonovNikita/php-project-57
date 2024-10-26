@@ -18,12 +18,15 @@
 
             <div class="flex items-center lg:order-2">
                 @auth
-                <form method="POST" 
-                    action="{{ route('logout') }}"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                    @csrf
-                    <button type="submit">{{ __('header.logout') }}</button>
-                </form>
+                <a href="#" 
+   onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+   {{ __('header.logout') }}
+</a>
+
+<form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+   @csrf
+</form>
                 @else
                     <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ __('header.login') }}
