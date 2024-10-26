@@ -18,6 +18,7 @@
             @endif
             <label for="status_id" class="text-black dark:text-white">{{ __('task.create.status') }}</label>
             <select id="status_id" name="status_id" class="form-control rounded border-gray-300 w-1/3" placeholder="----------">
+            <option value="" disabled selected></option>    
                 @foreach($taskStatus as $id => $name)
                     <option value="{{ $id }}">{{ $name }}</option>
                 @endforeach
@@ -27,6 +28,7 @@
             @endif
             <label for="assigned_to_id" class="text-black dark:text-white">{{ __('task.create.assigned_to') }}</label>
             <select id="assigned_to_id" name="assigned_to_id" class="form-control rounded border-gray-300 w-1/3" placeholder="----------">
+                <option value="" disabled selected></option>
                 @foreach($users as $id => $name)
                     <option value="{{ $id }}">{{ $name }}</option>
                 @endforeach
