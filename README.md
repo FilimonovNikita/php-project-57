@@ -1,9 +1,8 @@
 [![Actions Status](https://github.com/FilimonovNikita/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/FilimonovNikita/php-project-57/actions)
 [![PHP CI](https://github.com/FilimonovNikita/php-project-57/actions/workflows/phpci.yml/badge.svg)](https://github.com/FilimonovNikita/php-project-57/actions/workflows/phpci.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/maintainability.svg)](https://codeclimate.com/github/FilimonovNikita/php-project-57/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/test_coverage.svg)](https://codeclimate.com/github/FilimonovNikita/php-project-57/test_coverage)
 
-<a href="https://codeclimate.com/github/FilimonovNikita/php-project-57/maintainability"><img src="https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/maintainability" /></a>
-
-<a href="https://codeclimate.com/github/FilimonovNikita/php-project-57/test_coverage"><img src="https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/test_coverage" /></a>
 
 
 ### About the project
