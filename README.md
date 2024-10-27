@@ -1,3 +1,7 @@
+<a href="https://codeclimate.com/github/FilimonovNikita/php-project-57/maintainability"><img src="https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/maintainability" /></a>
+
+<a href="https://codeclimate.com/github/FilimonovNikita/php-project-57/test_coverage"><img src="https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/test_coverage" /></a>
+
 
 ### About the project
 Task Manager is a task management system that allows you to set tasks, assign executors and change their statuses.
