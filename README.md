@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/FilimonovNikita/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/FilimonovNikita/php-project-57/actions)
+[![Actions Status](https://github.com/FilimonovNikita/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/FilimonovNikita/php-project-57/actions/workflows/hexlet-check.yml)
 [![PHP CI](https://github.com/FilimonovNikita/php-project-57/actions/workflows/phpci.yml/badge.svg)](https://github.com/FilimonovNikita/php-project-57/actions/workflows/my-workflow.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/maintainability.svg)](https://codeclimate.com/github/FilimonovNikita/php-project-57/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/074f42913487f2c89e42/test_coverage.svg)](https://codeclimate.com/github/FilimonovNikita/php-project-57/test_coverage)
