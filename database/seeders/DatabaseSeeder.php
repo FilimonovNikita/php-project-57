@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call('Database\Seeders\LabelSeeder');
         $this->call('Database\Seeders\StatusSeeder');
-
+        $this->call('Database\Seeders\UserSeeder');
+        $this->call('Database\Seeders\TaskSeeder');
 
         /*// User::factory(10)->create();
 
