@@ -5,14 +5,14 @@ use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskLabelController;
+use App\Http\Controllers\LabelController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-
+/*
 Route::get('/verification.notice', 'Auth\VerificationController@notice')
-->name('verification.notice');
+->name('verification.notice');*/
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::resources([
     'task_statuses' => TaskStatusController::class,
     'tasks' => TaskController::class,
-    'task_labels' => TaskLabelController::class
+    'labels' => LabelController::class
 ]);
 
 require __DIR__ . '/auth.php';

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use App\Models\TaskLabel;
+use App\Models\Label;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
@@ -50,7 +50,7 @@ class TaskController extends Controller
         $tasks = new Task();
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.create', compact("tasks", "taskStatus", "users", 'taskLabels'));
     }
 
@@ -67,18 +67,17 @@ class TaskController extends Controller
                 'assigned_to_id' => 'nullable|integer',
             ],
             [
-                'name.unique' => __('task.validation.unique')
+                'name.required' => __('task.validation.required'),
+                'name.unique' => __('task.validation.unique'),
+                'status_id.required' => __('task.validation.required'),
             ]
         );
 
         $task = Auth::user()->createdTasks()->create($data);
         $task->save();
 
-        $labels = $request->input('labels');
-
-        if ($labels) {
-            $task->tasklabel()->attach($labels);
-        }
+        $labels = Arr::whereNotNull($request->input('labels') ?? []);
+        $task->taskLabel()->attach($labels);
 
         flash(__('task.flash.store'))->success();
 
@@ -92,7 +91,7 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.show', compact("task", "taskStatus", "users", 'taskLabels'));
     }
 
@@ -103,7 +102,7 @@ class TaskController extends Controller
     {
         $taskStatus = TaskStatus::orderby('id')->pluck('name', "id");
         $users = User::orderby('id')->pluck('name', "id");
-        $taskLabels = TaskLabel::orderby('id')->pluck('name', "id");
+        $taskLabels = Label::orderby('id')->pluck('name', "id");
         return view('tasks.edit', compact("task", "taskStatus", "users", "taskLabels"));//
     }
 
@@ -119,17 +118,16 @@ class TaskController extends Controller
             'status_id' => 'required|integer',
             'label' => 'nullable|array',
         ], [
-            'name.unique' => __('task_statuses.validation.unique')
+            'name.required' => __('task.validation.required'),
+            'name.unique' => __('task.validation.unique'),
+            'status_id.required' => __('task.validation.required')
         ]);
 
-        $task = Auth::user()->createdTasks()->create($data);
+        $task->fill($data);
         $task->save();
 
-        $labels = $request->input('labels');
-
-        if ($labels) {
-            $task->tasklabel()->attach($labels);
-        }
+        $labels = Arr::whereNotNull($request->input('labels') ?? []);
+        $task->taskLabel()->sync($labels);
 
         flash(__('task.flash.update'))->success();
         return redirect()

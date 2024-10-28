@@ -37,7 +37,7 @@ class TaskStatusController extends Controller
                 'description' => 'nullable'
             ],
             [
-                'name.unique' => __('task_statuses.validation.unique')
+                'name.unique' => __('task_status.validation.unique')
             ]
         );
         $taskStatus  = new TaskStatus();
@@ -65,7 +65,7 @@ class TaskStatusController extends Controller
                 'name' => 'required|max:255|unique:task_statuses,name,' . $taskStatus->id
             ],
             [
-            'name.unique' => __('task_statuses.validation.unique')
+            'name.unique' => __('task_status.validation.unique')
             ]
         );
 

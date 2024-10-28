@@ -7,17 +7,18 @@
         @csrf
         <div class="flex flex-col">
             <label for="name" class="text-black dark:text-white">{{ __('task.create.name') }}</label>
-            <input class="rounded border-gray-300 w-1/3" type="text" id="name" name="name" class="mt-2">
+            <input class="rounded border-gray-300 w-1/3 mt-2" type="text" id="name" name="name">
             @if ($errors->first('name'))
                 <div class="text-red-500">{{ $errors->first('name') }}</div>
             @endif
             <label for="description" class="text-black dark:text-white">{{ __('task.create.description') }}</label>
-            <textarea class="rounded border-gray-300 w-1/3 h-32" id="description" name="description" class="mt-2"></textarea>
+            <textarea class="rounded border-gray-300 w-1/3 h-32 mt-2" id="description" name="description" ></textarea>
             @if ($errors->first('description'))
                 <div class="text-red-500">{{ $errors->first('description') }}</div>
             @endif
             <label for="status_id" class="text-black dark:text-white">{{ __('task.create.status') }}</label>
             <select id="status_id" name="status_id" class="form-control rounded border-gray-300 w-1/3" placeholder="----------">
+            <option value="" disabled selected></option>    
                 @foreach($taskStatus as $id => $name)
                     <option value="{{ $id }}">{{ $name }}</option>
                 @endforeach
@@ -27,6 +28,7 @@
             @endif
             <label for="assigned_to_id" class="text-black dark:text-white">{{ __('task.create.assigned_to') }}</label>
             <select id="assigned_to_id" name="assigned_to_id" class="form-control rounded border-gray-300 w-1/3" placeholder="----------">
+                <option value="" disabled selected></option>
                 @foreach($users as $id => $name)
                     <option value="{{ $id }}">{{ $name }}</option>
                 @endforeach

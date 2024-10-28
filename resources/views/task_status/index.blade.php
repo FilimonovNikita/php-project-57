@@ -35,16 +35,18 @@
                         </td>
                         @auth
                             <td>
-                            @can('delete', $status)
-                            <form data-confirm="{{ __('task_status.index.delete_confirm') }}"
-                                action="{{ route('task_statuses.destroy', $status->id) }}"
-                                method="POST" 
-                                class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">{{ __('task_status.index.delete') }}</button>
-                            </form>
-                            @endcan
+                                <a href="#" class="text-red-500 hover:text-red-700 ml-2"
+                                onclick="event.preventDefault();
+                                if(confirm(`{{ __('task_status.index.delete_confirm') }}`)) {
+                                    document.getElementById('delete-form-{{ $status->id }}').submit();
+                                }">
+                                {{ __('task_status.index.delete') }}
+                                </a>
+                            
+                                <form id="delete-form-{{ $status->id }}" action="{{ route('task_statuses.destroy', $status->id) }}" method="POST" class="hidden"> 
+                                    @csrf 
+                                    @method('DELETE') 
+                                </form> 
                                 <a href="{{ route('task_statuses.edit', $status->id) }}" class="text-blue-600 hover:text-blue-900">
                                     {{ __('task_status.index.edit') }}
                                 </a>
@@ -54,6 +56,9 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
+        <div class="mt-4">
+            {{ $taskStatus->links() }}
         </div>
         <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
     </div>
