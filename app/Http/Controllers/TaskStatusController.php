@@ -89,6 +89,6 @@ class TaskStatusController extends Controller
 
         flash(__('task_status.flash.delete'))->success();
         return redirect()->
-            route('task_statuses.index');
+            route('task_status.index');
     }
 }
